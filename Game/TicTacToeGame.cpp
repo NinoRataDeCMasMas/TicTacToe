@@ -37,15 +37,8 @@ void TicTacToeGame::save()
  */
 void TicTacToeGame::undo()
 {
-
-//    backward.restore(); // el ultimo memento almacenado es el estado actual del juego,
-//                        // por lo que se descarta y se toma el estado anterior
-
     forward.save(backward.restore());
     auto* recovery = backward.restore();
-
-//    std::cout << "board actual:" << std::endl; tmp->getBoard()->print();
-//    std::cout << "board anterior:" << std::endl; recovery->getBoard()->print();
 
     if(recovery)
     {
@@ -111,10 +104,10 @@ void TicTacToeGame::changeTurn()
  */
 void TicTacToeGame::nextTurn()
 {
-    std::string bannerOne = *player1->getName() + ":[" + *player1->getSymbol() + "] Elija un casilla entre 1 y 9 "
-                            + "o la letra u para regresar un estado anterior: ";
+    std::string bannerOne = *player1->getName() + ":[" + *player1->getSymbol() + "]Elija un casilla entre 1 y 9 "
+                            + ", 'u' para deshacer una jugada y 'r' para restituir una jugada deshecha: ";
     std::string bannerTwo = *player2->getName() + ":[" + *player2->getSymbol() + "] Elija un casilla entre 1 y 9 "
-                            + "o la letra u para regresar un estado anterior: ";
+                            + ", 'u' para deshacer una jugada y 'r' para restituir una jugada deshecha: ";
     std::cout << (player1->isTurn() ? bannerOne : bannerTwo) << std::endl;
 }
 /**
@@ -142,11 +135,16 @@ bool TicTacToeGame::makeMove(int index)
 {
     int column = 0, row = 0, LineLenght = 3;
 
-    index = index - 1;
-    row = index / LineLenght;
-    column = index % LineLenght;
+    if(index >= 0 && index <= 9)
+    {
+        index = index - 1;
+        row = index / LineLenght;
+        column = index % LineLenght;
 
-    return board->markPosition(row, column, *getSymbolTurn());
+        return board->markPosition(row, column, *getSymbolTurn());
+    }
+    else
+        return false;
 }
 /**
  * @brief identificar al jugador del simbolo proporcionado
