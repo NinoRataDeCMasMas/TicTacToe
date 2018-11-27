@@ -1,3 +1,3 @@
 # Juego TicTacToe con memento
 
-![](https://raw.githubusercontent.com/NinoRataDeCMasMas/TicTacToe/TicTacToeMemento-DiagramaSecuencia.png)
+![](https://github.com/NinoRataDeCMasMas/TicTacToe/blob/master/TicTacToeMemento-DiagramaClases.png)
